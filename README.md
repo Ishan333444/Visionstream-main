@@ -116,7 +116,7 @@ VisionStream/
 
 ```bash
 git clone https://github.com/Ishan333444/Visionstream-main
-cd VisionStream
+cd VisionStream-main
 ```
 
 ## 2. Create the Python environment
