@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Testing
+.pytest_cache/
+
+# Logs
+logs/
+*.log
+
+# Runtime outputs
+outputs/
+
+# SQLite database
+backend/data/*.db
+
+# Calibration backups (if you ever make them)
+*.bak
+
+# Temporary files
+backend/run.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/

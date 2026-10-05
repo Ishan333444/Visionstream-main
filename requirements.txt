@@ -1,0 +1,26 @@
+fastapi==0.142.2
+uvicorn==0.54.0
+
+streamlit==1.65.0
+streamlit-autorefresh
+
+opencv-python==5.0.0.93
+ultralytics==8.4.173
+
+# PyTorch
+# Install the hardware-appropriate build if you need CUDA/ROCm.
+torch==2.14.1
+torchvision==0.29.1
+torchaudio==2.14.1
+
+numpy==2.4.6
+pandas==3.0.6
+matplotlib==3.11.2
+scipy==1.17.1
+
+filterpy==1.4.5
+lap==0.5.13
+supervision==0.30.7
+
+requests==2.34.2
+python-multipart==0.0.32
