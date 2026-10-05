@@ -115,7 +115,7 @@ VisionStream/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/coolknifer333444/VisionStream.git
+git clone https://github.com/Ishan333444/Visionstream-main
 cd VisionStream
 ```
 
