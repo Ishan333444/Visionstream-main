@@ -378,4 +378,4 @@ python -m backend.services.init_db
 
 **Ishan**
 
-GitHub: https://github.com/coolknifer333444
+GitHub: https://github.com/Ishan333444
