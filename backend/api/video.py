@@ -2,7 +2,8 @@ import cv2
 import time
 
 from fastapi import APIRouter
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
+from fastapi import HTTPException
 
 from backend.services.frame_manager import get_frame
 
@@ -37,3 +38,15 @@ def video_feed():
         generate_frames(),
         media_type="multipart/x-mixed-replace; boundary=frame",
     )
+
+
+@router.get("/snapshot")
+def snapshot():
+    """Return the latest processed frame as a JPEG for calibration preview."""
+    frame = get_frame()
+    if frame is None:
+        raise HTTPException(status_code=503, detail="No camera frame is available yet")
+    success, buffer = cv2.imencode(".jpg", frame)
+    if not success:
+        raise HTTPException(status_code=500, detail="Could not encode camera snapshot")
+    return Response(content=buffer.tobytes(), media_type="image/jpeg")

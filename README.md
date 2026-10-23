@@ -69,7 +69,8 @@ The application exposes analytics through a FastAPI backend and provides a Strea
 
 - Real-time object detection
 - Multi-object tracking
-- Entry / Exit counting
+- Multi-line entry / exit counting
+- Multiple configurable intrusion zones
 - Intrusion detection
 - Dwell time analytics
 - Crowd density monitoring
@@ -77,7 +78,7 @@ The application exposes analytics through a FastAPI backend and provides a Strea
 - Event logging
 - REST API
 - Live dashboard
-- Interactive calibration tool
+- Streamlit calibration editor with live preview, multiple counting lines, and multiple intrusion zones
 - MJPEG live video feed
 - CSV event export
 
@@ -115,8 +116,8 @@ VisionStream/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/coolknifer333444/VisionStream.git
-cd VisionStream
+git clone https://github.com/Ishan333444/Visionstream-main
+cd VisionStream-main
 ```
 
 ## 2. Create the Python environment
@@ -144,7 +145,7 @@ The current tested PyTorch stack is:
 - TorchVision 0.29.1
 - TorchAudio 2.14.1
 
-> **Hardware note:** the exact PyTorch wheel/build can depend on your hardware and operating system. The versions above are the versions used to test VisionStream. If you need a CUDA or ROCm-specific PyTorch build, install the appropriate hardware-specific build from the official PyTorch instructions before installing the remaining dependencies.
+> **Hardware note:** the exact PyTorch wheel/build can depend on your hardware and operating system. The versions above are the versions used to test VisionStream. If you need a CUDA-specific PyTorch build, install the appropriate hardware-specific build from the official PyTorch instructions before installing the remaining dependencies. On this Windows dashboard, processor selection exposes Auto, CPU, and NVIDIA CUDA only.
 
 ---
 
@@ -230,24 +231,15 @@ backend/data/visionstream.db
 
 # Camera Calibration
 
-Before using the system for the first time, or whenever the camera position changes:
-
-```bash
-python tools/calibration/calibrator.py
-```
-
-Calibration steps:
-
-1. Press **SPACE** to freeze the frame.
-2. Click **two points** to create the entry/exit line.
-3. Click **three or more points** to create the intrusion zone.
-4. Press **Enter** to save.
+Open the Streamlit **Calibration** page before using the system for the first time or whenever the camera position changes. Calibration is managed in the dashboard, which supports multiple named counting lines and multiple named intrusion zones. You can create multiple named counting lines and multiple named intrusion zones, edit normalized frame coordinates, preview the geometry on the latest camera frame, and apply changes without restarting the engine. At least one counting line is required; intrusion zones are optional, and each zone needs three or more points.
 
 Calibration is stored in:
 
 ```text
 backend/config/calibration.json
 ```
+
+Older `entry_line` / `intrusion_zone` calibration files are automatically read in the new multi-line / multi-zone format.
 
 ---
 
@@ -378,4 +370,4 @@ python -m backend.services.init_db
 
 **Ishan**
 
-GitHub: https://github.com/coolknifer333444
+GitHub: https://github.com/Ishan333444

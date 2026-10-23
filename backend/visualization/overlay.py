@@ -37,17 +37,9 @@ class Overlay:
             dwell_data
         )
 
-        Overlay.draw_counting_line(
-            frame,
-            line_counter.start,
-            line_counter.end
-        )
+        Overlay.draw_counting_lines(frame, line_counter.lines)
 
-        Overlay.draw_polygon(
-            frame,
-            intrusion_detector.polygon,
-            intrusion_data["inside"]
-        )
+        Overlay.draw_polygons(frame, intrusion_detector.polygons)
 
         return frame
 
@@ -147,39 +139,40 @@ class Overlay:
             )
 
     # ----------------------------------
-    # Counting Line
+    # Counting Lines
     # ----------------------------------
 
     @staticmethod
-    def draw_counting_line(frame, start, end):
-
-        cv2.line(
-            frame,
-            start,
-            end,
-            (0, 0, 255),
-            2
-        )
+    def draw_counting_lines(frame, lines):
+        palette = [(0, 0, 255), (255, 120, 0), (0, 200, 255), (255, 0, 200), (0, 200, 0)]
+        for index, line in enumerate(lines):
+            color = palette[index % len(palette)]
+            start, end = tuple(line["start"]), tuple(line["end"])
+            cv2.line(frame, start, end, color, 2)
+            label = f"{line['name']} E:{line['entries']} X:{line['exits']}"
+            cv2.putText(
+                frame, label, (max(5, start[0]), max(18, start[1] - 8)),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2
+            )
 
     # ----------------------------------
-    # Polygon Zone
+    # Intrusion Zones
     # ----------------------------------
 
     @staticmethod
-    def draw_polygon(frame, polygon, inside):
-
-        color = (0, 255, 0)
-
-        if inside > 0:
-            color = (0, 0, 255)
-
-        cv2.polylines(
-            frame,
-            [polygon],
-            True,
-            color,
-            2
-        )
+    def draw_polygons(frame, zones):
+        palette = [(0, 255, 0), (255, 0, 255), (0, 255, 255), (255, 150, 0), (150, 255, 0)]
+        for index, zone in enumerate(zones):
+            color = (0, 0, 255) if zone["inside"] > 0 else palette[index % len(palette)]
+            polygon = zone["polygon"]
+            cv2.polylines(frame, [polygon], True, color, 2)
+            if len(polygon):
+                x, y = polygon[0]
+                cv2.putText(
+                    frame, f"{zone['name']}: {zone['inside']}",
+                    (int(x), max(18, int(y) - 8)), cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5, color, 2
+                )
 
     # ----------------------------------
     # Dwell Timer

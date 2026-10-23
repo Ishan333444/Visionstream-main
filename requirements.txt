@@ -11,7 +11,6 @@ ultralytics==8.4.173
 # Install the hardware-appropriate build if you need CUDA/ROCm.
 torch==2.14.1
 torchvision==0.29.1
-torchaudio==2.14.1
 
 numpy==2.4.6
 pandas==3.0.6

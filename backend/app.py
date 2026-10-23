@@ -9,6 +9,8 @@ from backend.api.analytics import router as analytics_router
 from backend.api.events import router as events_router
 from backend.api.stats import router as stats_router
 from backend.api.video import router as video_router
+from backend.api.device import router as device_router
+from backend.api.calibration import router as calibration_router
 from backend.services.init_db import initialize_database
 
 
@@ -26,6 +28,7 @@ def run_engine():
 
     try:
         engine = VisionEngine()
+        app.state.engine_instance = engine
         app.state.engine_status = "running"
         print("VisionStream engine status: running")
 
@@ -66,3 +69,5 @@ app.include_router(analytics_router)
 app.include_router(events_router)
 app.include_router(stats_router)
 app.include_router(video_router)
+app.include_router(device_router)
+app.include_router(calibration_router)
