@@ -42,4 +42,4 @@ class Settings:
     # Keep a temporarily missing intrusion-zone track for this long before
     # treating it as an exit.
     INTRUSION_MISSING_GRACE_SECONDS = 1.0
-    SHOW_WINDOW = False
+    SHOW_WINDOW = True
